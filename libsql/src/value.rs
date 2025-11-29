@@ -234,8 +234,8 @@ impl From<libsql_sys::Value> for Value {
                     Value::Null
                 } else {
                     let v = unsafe { std::ffi::CStr::from_ptr(v as *const std::ffi::c_char) };
-                    let v = v.to_str().unwrap();
-                    Value::Text(v.to_owned())
+                    let v = v.to_string_lossy();
+                    Value::Text(v.to_string())
                 }
             }
             ValueType::Blob => {
